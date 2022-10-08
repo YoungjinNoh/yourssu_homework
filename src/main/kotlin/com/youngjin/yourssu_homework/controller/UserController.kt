@@ -12,12 +12,12 @@ class UserController(
         private val userService: UserService
 ) {
     @PostMapping("/user/create")
-    fun createUser(@RequestBody request: UserRequest) :UserResponse{
+    fun createUser(@RequestBody request: UserRequest): UserResponse {
         return userService.create(request)
     }
 
     @PostMapping("/user/delete")
-    fun deleteUser(@RequestBody request: UserRequest){
+    fun deleteUser(@RequestBody request: UserRequest) {
         userService.delete(request)
     }
 }

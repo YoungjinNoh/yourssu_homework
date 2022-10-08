@@ -19,7 +19,9 @@ class CommentService(
         val user = userRepository.findByEmailAndPassword(request.email, request.password)
                 ?: throw IllegalArgumentException("요청한 정보를 가진 회원이 없습니다.")
         val comment = Comment(LocalDateTime.now(),null,request.content!!,article_id,user.id!!)
-
+        println("id: "+comment.id)
+        println("email: "+user.email)
+        println("content: "+comment.content)
         return CommentResponse.of(comment,user)
     }
 

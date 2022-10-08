@@ -11,10 +11,8 @@ class Comment(
 
         var content: String,
 
-        @ManyToOne
         val article_id: Long,
 
-        @ManyToOne
         val user_id: Long,
 
         @Id

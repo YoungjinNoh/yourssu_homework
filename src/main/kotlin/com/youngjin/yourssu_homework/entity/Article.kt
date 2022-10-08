@@ -13,7 +13,6 @@ class Article(
 
         var title: String,
 
-        @ManyToOne
         val user_id: Long,
 
         @Id

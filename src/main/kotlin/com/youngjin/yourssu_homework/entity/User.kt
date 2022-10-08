@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@Table(name = "USERS")
 class User(
         val created_at: LocalDateTime,
 

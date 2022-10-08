@@ -21,35 +21,35 @@ class ArticleController(
     @PutMapping("/article/{id}/update")
     fun updateArticle(
             @PathVariable id: Long, @RequestBody request: ArticleRequest
-    ):ArticleResponse {
-        return articleService.update(id,request)
+    ): ArticleResponse {
+        return articleService.update(id, request)
     }
 
     @PostMapping("/article/{id}/delete")
     fun deleteArticle(
-            @PathVariable id:Long,@RequestBody request: ArticleRequest
-    ){
-        articleService.delete(id,request)
+            @PathVariable id: Long, @RequestBody request: ArticleRequest
+    ) {
+        articleService.delete(id, request)
     }
 
     @PostMapping("/article/{article_id}/comment")
     fun createComment(
-            @PathVariable article_id:Long,@RequestBody request: CommentRequest
-    ):CommentResponse{
-        return commentService.create(article_id,request)
+            @PathVariable article_id: Long, @RequestBody request: CommentRequest
+    ): CommentResponse {
+        return commentService.create(article_id, request)
     }
 
-    @PostMapping("/article/{article_id}/comment/{id}/update")
+    @PutMapping("/article/{article_id}/comment/{id}/update")
     fun updateComment(
-            @PathVariable id: Long,@RequestBody request: CommentRequest
-    ):CommentResponse{
-        return commentService.update(id,request)
+            @PathVariable id: Long, @RequestBody request: CommentRequest
+    ): CommentResponse {
+        return commentService.update(id, request)
     }
 
     @PostMapping("/article/{article_id}/comment/{id}/delete")
     fun deleteComment(
-            @PathVariable id: Long,@RequestBody request: CommentRequest
-    ){
-        commentService.delete(id,request)
+            @PathVariable id: Long, @RequestBody request: CommentRequest
+    ) {
+        commentService.delete(id, request)
     }
 }
