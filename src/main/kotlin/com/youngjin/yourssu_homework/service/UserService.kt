@@ -14,7 +14,7 @@ class UserService(
 ) {
     @Transactional
     fun create(request: UserRequest): UserResponse {
-        val user = User(LocalDateTime.now(), null, request.email, request.password, request.username)
+        val user = User(LocalDateTime.now(), null, request.email, request.password, request.username!!)
         userRepository.save(user)
         return UserResponse.of(user)
     }

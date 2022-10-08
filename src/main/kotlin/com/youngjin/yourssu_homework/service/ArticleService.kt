@@ -36,17 +36,24 @@ class ArticleService(
         val article = articleRepository.findById(id).orElse(null)
                 ?: throw IllegalArgumentException("요청한 정보를 가진 게시글이 없습니다.")
 
-        if(request.title!!.isBlank()||request.content!!.isBlank()){
-            throw IllegalArgumentException("게시글의 제목 또는 내용이 비어 있습니다.")
+        if(article.user_id!=user.id){
+            throw IllegalArgumentException("해당 게시글의 삭제 권한이 없는 회원입니다.")
         }
-
         article.update(request.title!!, request.content!!)
 
         return ArticleResponse.of(articleRepository.save(article), user)
     }
 
     @Transactional
-    fun delete(id:Long,request:ArticleRequest){
+    fun delete(id:Long,request: ArticleRequest){
+        val user = userRepository.findByEmailAndPassword(request.email, request.password)
+                ?: throw IllegalArgumentException("요청한 정보를 가진 회원이 없습니다.")
+        val article = articleRepository.findById(id).orElse(null)
+                ?: throw IllegalArgumentException("요청한 정보를 가진 게시글이 없습니다.")
+
+        if(article.user_id!=user.id){
+            throw IllegalArgumentException("해당 게시글의 삭제 권한이 없는 회원입니다.")
+        }
         articleRepository.deleteById(id)
     }
 }

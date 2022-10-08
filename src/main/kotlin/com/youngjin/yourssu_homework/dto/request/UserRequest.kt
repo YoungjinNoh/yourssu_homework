@@ -5,5 +5,5 @@ data class UserRequest(
         //그니까 나중에 findBy머시기로 찾아도 바로찾을수 있는 속성이 request 에 하나들어있어야됨
         val email: String,
         val password: String,
-        val username: String,
+        val username: String?=null,
 )

@@ -23,11 +23,14 @@ class Article(
 ) {
     init {
         if (title.isBlank() || content.isBlank()) {
-            throw IllegalArgumentException("게시글의 제목과 내용은 비어 있을 수 없습니다.")
+            throw IllegalArgumentException("게시글의 재목과 내용은 비어 있을 수 없습니다.")
         }
     }
 
     fun update(title: String, content: String) {
+        if (title.isBlank() || content.isBlank()) {
+            throw IllegalArgumentException("게시글의 재목과 내용은 비어 있을 수 없습니다.")
+        }
         this.title = title
         this.content = content
         this.updated_at= LocalDateTime.now()

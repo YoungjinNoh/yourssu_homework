@@ -7,15 +7,15 @@ import javax.persistence.*
 class Comment(
         val created_at: LocalDateTime,
 
-        var updated_at: LocalDateTime,
+        var updated_at: LocalDateTime?,
 
         var content: String,
 
         @ManyToOne
-        val article_id: Int,
+        val article_id: Long,
 
         @ManyToOne
-        val user_id: Int,
+        val user_id: Long,
 
         @Id
         @Column(name = "comment_id")
@@ -24,11 +24,15 @@ class Comment(
 ) {
     init {
         if (content.isBlank()) {
-            throw IllegalArgumentException("댓글의 내용은 비어 있을 수 없습니다.")
+            throw IllegalArgumentException("댓글의 내용이 비어 있을 수 없습니다.")
         }
     }
 
     fun update(content: String) {
+        if (content.isBlank()) {
+            throw IllegalArgumentException("댓글의 내용이 비어 있을 수 없습니다.")
+        }
         this.content = content
+        this.updated_at= LocalDateTime.now()
     }
 }
