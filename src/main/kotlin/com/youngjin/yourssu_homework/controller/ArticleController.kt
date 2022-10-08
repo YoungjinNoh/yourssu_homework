@@ -32,7 +32,7 @@ class ArticleController(
         articleService.delete(id, request)
     }
 
-    @PostMapping("/article/{article_id}/comment")
+    @PostMapping("/article/{article_id}/comment/create")
     fun createComment(
             @PathVariable article_id: Long, @RequestBody request: CommentRequest
     ): CommentResponse {
