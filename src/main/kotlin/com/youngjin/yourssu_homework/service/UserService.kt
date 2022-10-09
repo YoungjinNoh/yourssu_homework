@@ -14,7 +14,11 @@ class UserService(
 ) {
     @Transactional
     fun create(request: UserRequest): UserResponse {
-        val user = User(LocalDateTime.now(), null, request.email, request.password, request.username!!)
+        if(userRepository.findByEmail(request.email)!=null){
+            throw IllegalArgumentException("이미 가입한 회원입니다.")
+        }
+
+        val user = User(LocalDateTime.now(), null, request.email, request.password, request.username)
         userRepository.save(user)
         return UserResponse.of(user)
     }

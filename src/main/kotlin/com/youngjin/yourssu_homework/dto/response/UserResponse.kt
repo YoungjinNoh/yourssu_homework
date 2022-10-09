@@ -4,7 +4,7 @@ import com.youngjin.yourssu_homework.entity.User
 
 data class UserResponse(
         val email: String,
-        val username: String,
+        val username: String?,
 ) {
     companion object {
         fun of(user: User): UserResponse {

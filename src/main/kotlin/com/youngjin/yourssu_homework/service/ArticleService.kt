@@ -4,6 +4,7 @@ import com.youngjin.yourssu_homework.dto.request.ArticleRequest
 import com.youngjin.yourssu_homework.dto.response.ArticleResponse
 import com.youngjin.yourssu_homework.entity.Article
 import com.youngjin.yourssu_homework.repository.ArticleRepository
+import com.youngjin.yourssu_homework.repository.CommentRepository
 import com.youngjin.yourssu_homework.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,6 +15,7 @@ class ArticleService(
         //생성자가 하나일 경우에는 autowired 생략가능
         private val articleRepository: ArticleRepository,
         private val userRepository: UserRepository,
+        private val commentRepository: CommentRepository
 ) {
     @Transactional
     fun create(request: ArticleRequest): ArticleResponse {
@@ -21,7 +23,7 @@ class ArticleService(
                 ?: throw IllegalArgumentException("요청한 정보를 가진 회원이 없습니다.")
         val article = Article(LocalDateTime.now(), null, request.content!!, request.title!!, user.id!!)
 
-        if(request.title!!.isBlank()||request.content!!.isBlank()){
+        if (request.title!!.isBlank() || request.content!!.isBlank()) {
             throw IllegalArgumentException("게시글의 제목 또는 내용이 비어 있습니다.")
         }
 
@@ -36,7 +38,7 @@ class ArticleService(
         val article = articleRepository.findById(id).orElse(null)
                 ?: throw IllegalArgumentException("요청한 정보를 가진 게시글이 없습니다.")
 
-        if(article.user_id!=user.id){
+        if (article.user_id != user.id) {
             throw IllegalArgumentException("해당 게시글의 삭제 권한이 없는 회원입니다.")
         }
         article.update(request.title!!, request.content!!)
@@ -45,15 +47,22 @@ class ArticleService(
     }
 
     @Transactional
-    fun delete(id:Long,request: ArticleRequest){
+    fun delete(id: Long, request: ArticleRequest) {
         val user = userRepository.findByEmailAndPassword(request.email, request.password)
                 ?: throw IllegalArgumentException("요청한 정보를 가진 회원이 없습니다.")
         val article = articleRepository.findById(id).orElse(null)
                 ?: throw IllegalArgumentException("요청한 정보를 가진 게시글이 없습니다.")
+        val comments = commentRepository.findAllByArticleId(article.id!!)
 
-        if(article.user_id!=user.id){
+        if (article.user_id != user.id) {
             throw IllegalArgumentException("해당 게시글의 삭제 권한이 없는 회원입니다.")
         }
+        if (comments.isNotEmpty()) {
+            for (comment in comments) {
+                commentRepository.delete(comment)
+            }
+        }
+
         articleRepository.deleteById(id)
     }
 }

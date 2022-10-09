@@ -4,8 +4,13 @@ import com.youngjin.yourssu_homework.dto.request.ArticleRequest
 import com.youngjin.yourssu_homework.dto.request.CommentRequest
 import com.youngjin.yourssu_homework.dto.response.ArticleResponse
 import com.youngjin.yourssu_homework.dto.response.CommentResponse
+import com.youngjin.yourssu_homework.entity.Article
+import com.youngjin.yourssu_homework.entity.Comment
 import com.youngjin.yourssu_homework.service.ArticleService
 import com.youngjin.yourssu_homework.service.CommentService
+import org.apache.coyote.Response
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -26,9 +31,10 @@ class ArticleController(
     }
 
     @PostMapping("/article/{id}/delete")
+    @ResponseStatus(HttpStatus.OK)
     fun deleteArticle(
             @PathVariable id: Long, @RequestBody request: ArticleRequest
-    ) {
+    ){
         articleService.delete(id, request)
     }
 
@@ -47,9 +53,10 @@ class ArticleController(
     }
 
     @PostMapping("/article/{article_id}/comment/{id}/delete")
+    @ResponseStatus(HttpStatus.OK)
     fun deleteComment(
             @PathVariable id: Long, @RequestBody request: CommentRequest
-    ) {
+    ){
         commentService.delete(id, request)
     }
 }

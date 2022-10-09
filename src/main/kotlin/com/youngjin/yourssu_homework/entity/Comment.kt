@@ -11,7 +11,8 @@ class Comment(
 
         var content: String,
 
-        val article_id: Long,
+        @Column(name = "article_id")
+        val articleId: Long,
 
         val user_id: Long,
 

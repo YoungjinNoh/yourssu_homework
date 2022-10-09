@@ -14,7 +14,7 @@ class User(
 
         val password: String,
 
-        val username: String,
+        val username: String?,
 
         @Id
         @Column(name = "user_id")
