@@ -4,7 +4,7 @@ import com.youngjin.yourssu_homework.entity.Comment
 import com.youngjin.yourssu_homework.entity.User
 
 data class CommentResponse(
-        val id: Long,
+        val commentId: Long,
         val email: String,
         val content: String,
 ){

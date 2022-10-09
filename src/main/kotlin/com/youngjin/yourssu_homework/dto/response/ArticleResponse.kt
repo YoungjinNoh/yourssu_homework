@@ -4,7 +4,7 @@ import com.youngjin.yourssu_homework.entity.Article
 import com.youngjin.yourssu_homework.entity.User
 
 data class ArticleResponse(
-        val id: Long,
+        val articleId: Long,
         val email: String,
         val title: String,
         val content: String,
